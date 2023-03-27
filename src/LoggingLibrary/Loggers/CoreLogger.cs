@@ -3,6 +3,7 @@ using LoggingLibrary.Implements;
 using LoggingLibrary.Interfaces;
 using LoggingLibrary.Loggers.Options;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace LoggingLibrary.Loggers
@@ -66,6 +67,22 @@ namespace LoggingLibrary.Loggers
                 LoggerType.NLog => builder.UseNLogFromCore(),
                 LoggerType.Serilog => builder.UseSerilogFromCore(),
                 LoggerType.Log4Net => builder.UseLog4NetFromCore(),
+                _ => throw new ArgumentOutOfRangeException(nameof(_loggerType))
+            };
+        }
+        
+        /// <summary>
+        /// Add Log (UseCoreLog() can't used situation, try this...)
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddCoreLogging(this IServiceCollection services)
+        {
+            return _loggerType switch
+            {
+                LoggerType.NLog => services.AddNLogFromCore(),
+                LoggerType.Serilog => services.AddSerilogFromCore(),
+                LoggerType.Log4Net => services.AddLog4NetFromCore(),
                 _ => throw new ArgumentOutOfRangeException(nameof(_loggerType))
             };
         }

@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using log4net;
 using LoggingLibrary.Loggers.Options;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -35,6 +36,13 @@ namespace LoggingLibrary.Loggers
         /// <returns></returns>
         public static IHostBuilder UseLog4NetFromCore(this IHostBuilder builder) => builder.ConfigureLogging(o => o.AddLog4Net(_options.ConfigFilePath));
 
+        /// <summary>
+        /// Add log4net
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddLog4NetFromCore(this IServiceCollection services) => services.AddLogging(builder => builder.AddLog4Net(_options.ConfigFilePath));
+        
         /// <summary>
         /// Close
         /// </summary>

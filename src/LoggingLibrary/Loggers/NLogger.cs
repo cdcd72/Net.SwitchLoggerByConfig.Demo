@@ -1,7 +1,9 @@
 ﻿using LoggingLibrary.Loggers.Options;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NLog;
 using NLog.Config;
+using NLog.Extensions.Logging;
 using NLog.Web;
 
 namespace LoggingLibrary.Loggers
@@ -38,6 +40,13 @@ namespace LoggingLibrary.Loggers
         /// <returns></returns>
         public static IHostBuilder UseNLogFromCore(this IHostBuilder builder) => builder.UseNLog();
 
+        /// <summary>
+        /// Add Nlog
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddNLogFromCore(this IServiceCollection services) => services.AddLogging(builder => builder.AddNLog());
+        
         /// <summary>
         /// Close
         /// </summary>

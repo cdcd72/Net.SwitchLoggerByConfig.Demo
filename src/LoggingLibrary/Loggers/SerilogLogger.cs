@@ -1,4 +1,5 @@
 ﻿using LoggingLibrary.Loggers.Options;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 
@@ -36,6 +37,13 @@ namespace LoggingLibrary.Loggers
         /// <returns></returns>
         public static IHostBuilder UseSerilogFromCore(this IHostBuilder builder) => builder.UseSerilog();
 
+        /// <summary>
+        /// Add Serilog
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddSerilogFromCore(this IServiceCollection services) => services.AddLogging(builder => builder.AddSerilog());
+        
         /// <summary>
         /// Close
         /// </summary>
