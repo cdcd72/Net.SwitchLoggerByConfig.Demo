@@ -5,19 +5,11 @@ using Microsoft.Extensions.Logging.Log4Net.AspNetCore.Extensions;
 
 namespace LoggingLibrary.Implements
 {
-    public class Logger : ILogger
+    public class Logger(LoggerType loggerType) : ILogger
     {
-        private readonly LoggerType _loggerType;
-        
-        #region Constructor
-        
-        public Logger(LoggerType loggerType) => _loggerType = loggerType;
-
-        #endregion
-        
         public void LogTrace(string message)
         {
-            switch (_loggerType)
+            switch (loggerType)
             {
                 case LoggerType.NLog:
                     NLogger.GetLogger().Trace(message);
@@ -29,13 +21,13 @@ namespace LoggingLibrary.Implements
                     Log4NetLogger.GetLogger().Trace(message, null);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(_loggerType));
+                    throw new ArgumentOutOfRangeException(nameof(loggerType));
             }
         }
 
         public void LogDebug(string message)
         {
-            switch (_loggerType)
+            switch (loggerType)
             {
                 case LoggerType.NLog:
                     NLogger.GetLogger().Debug(message);
@@ -47,13 +39,13 @@ namespace LoggingLibrary.Implements
                     Log4NetLogger.GetLogger().Debug(message);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(_loggerType));
+                    throw new ArgumentOutOfRangeException(nameof(loggerType));
             }
         }
 
         public void LogInformation(string message)
         {
-            switch (_loggerType)
+            switch (loggerType)
             {
                 case LoggerType.NLog:
                     NLogger.GetLogger().Info(message);
@@ -65,13 +57,13 @@ namespace LoggingLibrary.Implements
                     Log4NetLogger.GetLogger().Info(message);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(_loggerType));
+                    throw new ArgumentOutOfRangeException(nameof(loggerType));
             }
         }
 
         public void LogWarning(string message)
         {
-            switch (_loggerType)
+            switch (loggerType)
             {
                 case LoggerType.NLog:
                     NLogger.GetLogger().Warn(message);
@@ -83,13 +75,13 @@ namespace LoggingLibrary.Implements
                     Log4NetLogger.GetLogger().Warn(message);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(_loggerType));
+                    throw new ArgumentOutOfRangeException(nameof(loggerType));
             }
         }
 
         public void LogError(string message)
         {
-            switch (_loggerType)
+            switch (loggerType)
             {
                 case LoggerType.NLog:
                     NLogger.GetLogger().Error(message);
@@ -101,13 +93,13 @@ namespace LoggingLibrary.Implements
                     Log4NetLogger.GetLogger().Error(message);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(_loggerType));
+                    throw new ArgumentOutOfRangeException(nameof(loggerType));
             }
         }
 
         public void LogCritical(string message)
         {
-            switch (_loggerType)
+            switch (loggerType)
             {
                 case LoggerType.NLog:
                     NLogger.GetLogger().Fatal(message);
@@ -119,7 +111,7 @@ namespace LoggingLibrary.Implements
                     Log4NetLogger.GetLogger().Fatal(message);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(_loggerType));
+                    throw new ArgumentOutOfRangeException(nameof(loggerType));
             }
         }
     }

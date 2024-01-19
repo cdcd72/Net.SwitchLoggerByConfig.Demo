@@ -6,15 +6,8 @@ namespace Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class LogController : ControllerBase
+public class LogController(ILogger<LogController> logger) : ControllerBase
 {
-    private readonly ILogger<LogController> _logger;
-
-    public LogController(ILogger<LogController> logger)
-    {
-        _logger = logger;
-    }
-    
     [HttpPost]
     [Route(nameof(Write))]
     public async Task Write([FromBody] WriteLogInput input)
@@ -25,22 +18,22 @@ public class LogController : ControllerBase
         switch (logLevel)
         {
             case LogLevel.Trace:
-                _logger.LogTrace(message);
+                logger.LogTrace(message);
                 break;
             case LogLevel.Debug:
-                _logger.LogDebug(message);
+                logger.LogDebug(message);
                 break;
             case LogLevel.Information:
-                _logger.LogInformation(message);
+                logger.LogInformation(message);
                 break;
             case LogLevel.Warning:
-                _logger.LogWarning(message);
+                logger.LogWarning(message);
                 break;
             case LogLevel.Error:
-                _logger.LogError(message);
+                logger.LogError(message);
                 break;
             case LogLevel.Critical:
-                _logger.LogCritical(message);
+                logger.LogCritical(message);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(logLevel));
